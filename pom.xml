@@ -14,21 +14,17 @@
     </properties>
 
     <dependencies>
-        <!-- HttpClient for making HTTP requests -->
-        <dependency>
-            <groupId>org.apache.httpcomponents.client5</groupId>
-            <artifactId>httpclient5</artifactId>
-            <version>5.2</version>
-        </dependency>
+        <!-- Built-in HttpClient from Java 11+ -->
+        <!-- No external dependency needed for HttpClient -->
 
-        <!-- Optional: Jackson for JSON handling -->
+        <!-- Jackson for JSON handling -->
         <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.15.2</version>
         </dependency>
 
-        <!-- JUnit for testing -->
+        <!-- JUnit for testing (consider upgrading to JUnit 5 in the future) -->
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
