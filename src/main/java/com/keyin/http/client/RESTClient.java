@@ -90,7 +90,7 @@ public class RESTClient {
     public List<Aircraft> getAllAircraft() {
         List<Aircraft> aircraft = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(serverURL + "/aircraft"))
+                .uri(URI.create(serverURL + "/aircrafts"))
                 .build();
         try {
             HttpResponse<String> response = httpSender(request);
@@ -105,7 +105,7 @@ public class RESTClient {
     public List<Aircraft> getAircraftByPassenger(Long passengerId) {
         List<Aircraft> aircraft = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(serverURL + "/passengers/" + passengerId + "/aircraft"))
+                .uri(URI.create(serverURL + "/passengers/" + passengerId + "/aircrafts"))
                 .build();
         try {
             HttpResponse<String> response = httpSender(request);
