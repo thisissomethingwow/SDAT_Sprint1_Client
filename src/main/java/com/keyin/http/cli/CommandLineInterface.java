@@ -133,6 +133,7 @@ public class CommandLineInterface {
         StringBuilder report = new StringBuilder("Aircraft Report:\n");
         for (Aircraft plane : aircraft) {
             report.append("Aircraft ID: ").append(plane.getId())
+                    .append(", Airline: ").append(plane.getAirlineName())
                     .append(", Type: ").append(plane.getModel())
                     .append("\n");
         }

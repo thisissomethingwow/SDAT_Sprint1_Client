@@ -4,6 +4,7 @@ public class Aircraft {
     private Long id;
     private String model;
     private int capacity;
+    private String airline_name;
 
     // Getters and Setters
     public Long getId() {
@@ -28,5 +29,13 @@ public class Aircraft {
 
     public void setCapacity(int capacity) {
         this.capacity = capacity;
+    }
+
+    public String getAirlineName() {
+        return airline_name;
+    }
+
+    public void setAirlineName(String airline_name) {
+        this.airline_name = airline_name;
     }
 }
