@@ -102,31 +102,44 @@ public class RESTClient {
     }
 
     // Get aircraft by passenger
-    public List<Aircraft> getAircraftByPassenger(Long passengerId) {
-        List<Aircraft> aircraft = new ArrayList<>();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(serverURL + "/passengers/" + passengerId + "/aircrafts"))
-                .build();
-        try {
-            HttpResponse<String> response = httpSender(request);
-            aircraft = objectMapper.readValue(response.body(), new TypeReference<List<Aircraft>>() {});
-        } catch (IOException | InterruptedException e) {
-            System.out.println("Failed to retrieve aircraft by passenger: " + e.getMessage());
-        }
-        return aircraft;
-    }
+//    public List<Aircraft> getAircraftByPassenger(Long passengerId) {
+//        List<Aircraft> aircraft = new ArrayList<>();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(serverURL + "/flights/passenger/" + passengerId + "/aircraft"))
+//                .build();
+//        try {
+//            HttpResponse<String> response = httpSender(request);
+//            aircraft = objectMapper.readValue(response.body(), new TypeReference<List<Aircraft>>() {});
+//        } catch (IOException | InterruptedException e) {
+//            System.out.println("Failed to retrieve aircraft by passenger: " + e.getMessage());
+//        }
+//        return aircraft;
+//    }
 
     // Get airports used by passengers
     public List<Airport> getAirportsUsedByPassengers(Long passengerId) {
         List<Airport> airports = new ArrayList<>();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(serverURL + "/passengers/" + passengerId + "/airports"))
+                .uri(URI.create(serverURL + "/flights/passenger/" + passengerId + "/airports"))
                 .build();
         try {
             HttpResponse<String> response = httpSender(request);
             airports = objectMapper.readValue(response.body(), new TypeReference<List<Airport>>() {});
         } catch (IOException | InterruptedException e) {
             System.out.println("Failed to retrieve airports used by passengers: " + e.getMessage());
+        }
+        return airports;
+    }
+    public List<Airport> getAuthorizedAirportsForAircraft(Long aircraftId) {
+        List<Airport> airports = new ArrayList<>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(serverURL + "/aircrafts/" + aircraftId + "/airports"))
+                .build();
+        try {
+            HttpResponse<String> response = httpSender(request);
+            airports = objectMapper.readValue(response.body(), new TypeReference<List<Airport>>() {});
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Failed to retrieve authorized airports for aircraft: " + e.getMessage());
         }
         return airports;
     }

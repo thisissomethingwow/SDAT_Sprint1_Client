@@ -26,7 +26,7 @@ public class CommandLineInterface {
             System.out.println("2. List all airports");
             System.out.println("3. List airports by city");
             System.out.println("4. List all aircraft");
-            System.out.println("5. List aircraft by passenger");
+            System.out.println("5. List authorized airports for aircraft");
             System.out.println("6. List airports used by passengers");
             System.out.println("7. Exit");
             System.out.print("\nEnter your command: ");
@@ -49,9 +49,9 @@ public class CommandLineInterface {
                     generateAircraftReport();
                     break;
                 case 5:
-                    System.out.print("Enter Passenger ID: ");
-                    Long passengerId = scanner.nextLong();
-                    generateAircraftReportByPassenger(passengerId);
+                    System.out.print("Enter Aircraft ID: ");
+                    Long aircraftId = scanner.nextLong();
+                    generateAuthorizedAirportsForAircraft(aircraftId);
                     break;
                 case 6:
                     System.out.print("Enter Passenger ID: ");
@@ -141,17 +141,18 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAircraftReportByPassenger(Long passengerId) {
-        List<Aircraft> aircraft = restClient.getAircraftByPassenger(passengerId);
-        if (aircraft == null || aircraft.isEmpty()) {
-            System.out.println("No aircraft found for passenger ID: " + passengerId);
+    private void generateAuthorizedAirportsForAircraft(Long aircraftId) {
+        List<Airport> airports = restClient.getAuthorizedAirportsForAircraft(aircraftId);
+        if (airports == null || airports.isEmpty()) {
+            System.out.println("No authorized airports found for aircraft ID: " + aircraftId);
             return;
         }
 
-        StringBuilder report = new StringBuilder("Aircraft used by Passenger ID: " + passengerId + "\n");
-        for (Aircraft plane : aircraft) {
-            report.append("Aircraft ID: ").append(plane.getId())
-                    .append(", Type: ").append(plane.getModel())
+        StringBuilder report = new StringBuilder("Authorized Airports for Aircraft ID: " + aircraftId + "\n");
+        for (Airport airport : airports) {
+            report.append("Airport ID: ").append(airport.getId())
+                    .append(", Name: ").append(airport.getName())
+                    .append(", Code: ").append(airport.getCode())
                     .append("\n");
         }
 
