@@ -22,13 +22,17 @@ public class RESTClient {
     private HttpClient client;
     private ObjectMapper objectMapper;
 
+    // Original constructor for normal use
     public RESTClient(String serverURL) {
+        this(serverURL, HttpClient.newHttpClient());
+    }
+    // New constructor for testing
+    public RESTClient(String serverURL, HttpClient client) {
         this.serverURL = serverURL;
-        this.client = HttpClient.newHttpClient();
+        this.client = client;
         this.objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
     }
-
     // Send HTTP request
     private HttpResponse<String> httpSender(HttpRequest request) throws IOException, InterruptedException {
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
