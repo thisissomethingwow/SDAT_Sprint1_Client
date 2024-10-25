@@ -1,0 +1,112 @@
+import com.keyin.domain.Aircraft;
+import com.keyin.domain.Airport;
+import com.keyin.domain.City;
+import com.keyin.http.cli.CommandLineInterface;
+import com.keyin.http.client.RESTClient;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
+
+import java.util.Arrays;
+import java.util.Collections;
+
+import static org.mockito.Mockito.*;
+
+class CommandLineInterfaceTest {
+
+    private RESTClient mockRestClient;
+    private CommandLineInterface cli;
+
+    @BeforeEach
+    void setUp() {
+        mockRestClient = mock(RESTClient.class);
+        cli = new CommandLineInterface(mockRestClient);
+    }
+
+    @Test
+    void testGenerateCityReport_withCities() {
+        //Given A list of cities from RESTClient
+        City city1 = new City(1L, "Toronto", "Ontario", 3000000);
+        City city2 = new City(2L, "Vancouver", "British Columbia", 2000000);
+        when(mockRestClient.getAllCities()).thenReturn(Arrays.asList(city1, city2));
+
+        //When We call generateCityReport
+        cli.generateCityReport();
+
+        //Then Ensure correct output
+        verify(mockRestClient).getAllCities();
+    }
+
+    @Test
+    void testGenerateCityReport_noCities() {
+        //Given No cities returned by RESTClient
+        when(mockRestClient.getAllCities()).thenReturn(Collections.emptyList());
+
+        //When We call generateCityReport
+        cli.generateCityReport();
+
+        //Then Ensure that the message for no cities is printed
+        verify(mockRestClient).getAllCities();
+    }
+
+    @Test
+    void testGenerateAirportReport_withAirports() {
+        //Given A list of airports from RESTClient
+        Airport airport1 = new Airport();
+        airport1.setId(1L);
+        airport1.setName("Pearson International");
+        airport1.setCode("YYZ");
+
+        Airport airport2 = new Airport();
+        airport2.setId(2L);
+        airport2.setName("Vancouver International");
+        airport2.setCode("YVR");
+
+        when(mockRestClient.getAllAirports()).thenReturn(Arrays.asList(airport1, airport2));
+
+        //When We call generateAirportReport
+        cli.generateAirportReport();
+
+        //Then Ensure correct output
+        verify(mockRestClient).getAllAirports();
+    }
+
+    @Test
+    void testGenerateAircraftReport_withAircraft() {
+        //Given A list of aircraft from RESTClient
+        Aircraft aircraft1 = new Aircraft();
+        aircraft1.setId(1L);
+        aircraft1.setModel("Boeing 737");
+        aircraft1.setAirlineName("Air Canada");
+
+        Aircraft aircraft2 = new Aircraft();
+        aircraft2.setId(2L);
+        aircraft2.setModel("Airbus A320");
+        aircraft2.setAirlineName("WestJet");
+
+        when(mockRestClient.getAllAircraft()).thenReturn(Arrays.asList(aircraft1, aircraft2));
+
+        //When We call generateAircraftReport
+        cli.generateAircraftReport();
+
+        //Then Ensure correct output
+        verify(mockRestClient).getAllAircraft();
+    }
+
+    @Test
+    void testGenerateAirportsByCity_withAirports() {
+        //Given Airports for a specific city
+        Airport airport1 = new Airport();
+        airport1.setId(1L);
+        airport1.setName("Pearson International");
+        airport1.setCode("YYZ");
+
+        when(mockRestClient.getAirportsByCity(1L)).thenReturn(Collections.singletonList(airport1));
+
+        //When We call generateAirportReportByCity
+        cli.generateAirportReportByCity(1L);
+
+        //Then Ensure correct output
+        verify(mockRestClient).getAirportsByCity(1L);
+    }
+}
