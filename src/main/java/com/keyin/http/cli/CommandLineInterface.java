@@ -16,6 +16,10 @@ public class CommandLineInterface {
         this.restClient = new RESTClient("http://localhost:8080");  // Adjust your server URL as needed
     }
 
+    public CommandLineInterface(RESTClient restClient){
+        this.restClient = restClient;
+    }
+
     public void run() {
         Scanner scanner = new Scanner(System.in);
         System.out.println("Welcome to the Flight CLI Application!");
@@ -69,7 +73,7 @@ public class CommandLineInterface {
         }
     }
 
-    private void generateCityReport() {
+    void generateCityReport() {
         List<City> cities = restClient.getAllCities();
         if (cities == null || cities.isEmpty()) {
             System.out.println("No cities found.");
@@ -88,7 +92,7 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAirportReport() {
+    void generateAirportReport() {
         List<Airport> airports = restClient.getAllAirports();
         if (airports == null || airports.isEmpty()) {
             System.out.println("No airports found.");
@@ -106,7 +110,7 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAirportReportByCity(Long cityId) {
+    void generateAirportReportByCity(Long cityId) {
         List<Airport> airports = restClient.getAirportsByCity(cityId);
         if (airports == null || airports.isEmpty()) {
             System.out.println("No airports found for city ID: " + cityId);
@@ -123,7 +127,7 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAircraftReport() {
+    void generateAircraftReport() {
         List<Aircraft> aircraft = restClient.getAllAircraft();
         if (aircraft == null || aircraft.isEmpty()) {
             System.out.println("No aircraft found.");
@@ -141,7 +145,7 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAuthorizedAirportsForAircraft(Long aircraftId) {
+    void generateAuthorizedAirportsForAircraft(Long aircraftId) {
         List<Airport> airports = restClient.getAuthorizedAirportsForAircraft(aircraftId);
         if (airports == null || airports.isEmpty()) {
             System.out.println("No authorized airports found for aircraft ID: " + aircraftId);
@@ -159,7 +163,7 @@ public class CommandLineInterface {
         System.out.println(report.toString());
     }
 
-    private void generateAirportsUsedByPassengers(Long passengerId) {
+    void generateAirportsUsedByPassengers(Long passengerId) {
         List<Airport> airports = restClient.getAirportsUsedByPassengers(passengerId);
         if (airports == null || airports.isEmpty()) {
             System.out.println("No airports found for passenger ID: " + passengerId);
