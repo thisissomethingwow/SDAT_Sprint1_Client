@@ -1,3 +1,5 @@
+package com.keyin.http.cli;
+
 import com.keyin.domain.Aircraft;
 import com.keyin.domain.Airport;
 import com.keyin.domain.City;
@@ -14,7 +16,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-class CLITests {
+class CommandLineInterfaceTest {
 
     @Mock
     private RESTClient mockRestClient;
