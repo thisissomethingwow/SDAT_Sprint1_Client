@@ -32,7 +32,8 @@ public class CommandLineInterface {
             System.out.println("4. List all aircraft");
             System.out.println("5. List authorized airports for aircraft");
             System.out.println("6. List airports used by passengers");
-            System.out.println("7. Exit");
+            System.out.println("7. List aircraft passengers have travelled on");
+            System.out.println("8. Exit");
             System.out.print("\nEnter your command: ");
 
             int command = scanner.nextInt();
@@ -63,6 +64,11 @@ public class CommandLineInterface {
                     generateAirportsUsedByPassengers(passengerIdForAirports);
                     break;
                 case 7:
+                    System.out.print("Enter Passenger ID: ");
+                    Long passengerIdForAircraft = scanner.nextLong();
+                    generatePassengerAircraftReport(passengerIdForAircraft);
+                    break;
+                case 8:
                     System.out.println("Exiting...");
                     scanner.close();
                     System.exit(0);
@@ -179,6 +185,24 @@ public class CommandLineInterface {
 
         System.out.println(report.toString());
     }
+    private void generatePassengerAircraftReport(Long passengerId) {
+        List<Aircraft> aircraft = restClient.getPassengerAircraft(passengerId);
+        if (aircraft == null || aircraft.isEmpty()) {
+            System.out.println("No aircraft found for passenger ID: " + passengerId);
+            return;
+        }
+
+        StringBuilder report = new StringBuilder("Aircraft travelled by Passenger ID: " + passengerId + "\n");
+        for (Aircraft plane : aircraft) {
+            report.append("Aircraft ID: ").append(plane.getId())
+                    .append(", Airline: ").append(plane.getAirlineName())
+                    .append(", Type: ").append(plane.getModel())
+                    .append("\n");
+        }
+
+        System.out.println(report.toString());
+    }
+
 
     // Main method to run the application
     public static void main(String[] args) {

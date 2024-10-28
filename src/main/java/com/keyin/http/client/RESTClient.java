@@ -105,20 +105,20 @@ public class RESTClient {
         return aircraft;
     }
 
-    // Get aircraft by passenger
-//    public List<Aircraft> getAircraftByPassenger(Long passengerId) {
-//        List<Aircraft> aircraft = new ArrayList<>();
-//        HttpRequest request = HttpRequest.newBuilder()
-//                .uri(URI.create(serverURL + "/flights/passenger/" + passengerId + "/aircraft"))
-//                .build();
-//        try {
-//            HttpResponse<String> response = httpSender(request);
-//            aircraft = objectMapper.readValue(response.body(), new TypeReference<List<Aircraft>>() {});
-//        } catch (IOException | InterruptedException e) {
-//            System.out.println("Failed to retrieve aircraft by passenger: " + e.getMessage());
-//        }
-//        return aircraft;
-//    }
+    // In RESTClient.java
+    public List<Aircraft> getPassengerAircraft(Long passengerId) {
+        List<Aircraft> aircraft = new ArrayList<>();
+        HttpRequest request = HttpRequest.newBuilder()
+                .uri(URI.create(serverURL + "/flights/passenger/" + passengerId + "/aircraft"))
+                .build();
+        try {
+            HttpResponse<String> response = httpSender(request);
+            aircraft = objectMapper.readValue(response.body(), new TypeReference<List<Aircraft>>() {});
+        } catch (IOException | InterruptedException e) {
+            System.out.println("Failed to retrieve passenger's aircraft: " + e.getMessage());
+        }
+        return aircraft;
+    }
 
     // Get airports used by passengers
     public List<Airport> getAirportsUsedByPassengers(Long passengerId) {

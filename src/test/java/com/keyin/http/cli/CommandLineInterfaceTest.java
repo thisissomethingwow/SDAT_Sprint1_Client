@@ -19,9 +19,9 @@ import static org.mockito.Mockito.*;
 class CommandLineInterfaceTest {
 
     @Mock
-    private RESTClient mockRestClient;
+    private RESTClient mockRestClient; // Collaborator
 
-    private CommandLineInterface cli;
+    private CommandLineInterface cli; // SUT
 
     @BeforeEach
     void setUp() {
