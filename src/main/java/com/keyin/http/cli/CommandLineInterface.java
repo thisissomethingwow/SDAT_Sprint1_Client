@@ -13,7 +13,7 @@ public class CommandLineInterface {
     private final RESTClient restClient;
 
     public CommandLineInterface() {
-        this.restClient = new RESTClient("http://localhost:8080");  // Adjust your server URL as needed
+        this.restClient = new RESTClient("http://localhost:8080");
     }
 
     public CommandLineInterface(RESTClient restClient){
